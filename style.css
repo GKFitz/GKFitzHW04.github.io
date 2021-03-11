@@ -1,4 +1,8 @@
+#countDownTimer {
+    text-align: center;
+}
 .jumbotron {
+    text-align: center;
     margin: 10px auto;
     /*display: flex;*/
     justify-content: center;
@@ -6,8 +10,12 @@
     border: 0.08em solid black;
 }
 
-.start_quiz {
+.start_quiz {   
     justify-content: center;
+    text-align: center;
 
+}
+.hs_button {
+    color: white;
 }
   
