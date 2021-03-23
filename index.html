@@ -14,35 +14,34 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <p class="btn btn-primary btn-lg high_score"><a href="#" class="navbar-link hs_button">High Score</a></p>
-        <div id="countDownTimer">00:00</div>
-    </nav>
+   
+    <!---Navbar with the view high score button and the timer-->
+    <div class= "container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+            <div class="btn btn-primary btn-lg high_score"><a href="#" class="navbar-link hs_btn">View High Score</a></div>
+            <div id="countDownTimer"> 5:00 Minutes</div>
+        </nav>
+    </div>
+   <!---The Quiz Start box--->
     <div class= "container">
         <div class="row">
-            <div class="col-lg-11">
+            <div class="col-md-12">
                 <div class="jumbotron">
                     <h1>Coding Quiz Challenge!!!</h1>
                     <p>Try to answer the following coding related questions within the time given. Keep in mind that with every wrong answer ten seconds will be subtracted from your time. Good Luck! </p>
-                    <p><a class="btn btn-primary btn-lg start_quiz" href="#" role="button">Start Quiz!</a></p>
+                    <p><a class="btn btn-primary btn-lg start_quizbtn" href="#" role="button">Start Quiz!</a></p>
                 </div>
             </div>
         </div>
     </div>
+    <!--The Quiz-->
 
 
 
 
     <!--JavaScript Page Link-->
-    <script src="script.js">
+    <script src="./script.js"></script>
 
-
-
-
-
-
-
-
-    </script>
+    <script src="questions.js"></script>
 </body>
 </html>

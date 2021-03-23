@@ -1,5 +1,7 @@
 #countDownTimer {
     text-align: center;
+    display:flex;
+    color: white;
 }
 .jumbotron {
     text-align: center;
@@ -8,14 +10,23 @@
     justify-content: center;
     /*margin: 10px 10px 10px 10px;*/
     border: 0.08em solid black;
+    background-color: pink;
 }
 
-.start_quiz {   
+.start_quizbtn {   
     justify-content: center;
     text-align: center;
+    color: black;
 
 }
-.hs_button {
+
+.hs_btn{
+    color: black;
+    
+}
+
+.hs_btn:hover {
     color: white;
+
 }
   
