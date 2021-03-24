@@ -16,12 +16,17 @@
 <body>
    
     <!---Navbar with the view high score button and the timer-->
-    <div class= "container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-            <div class="btn btn-primary btn-lg high_score"><a href="#" class="navbar-link hs_btn">View High Score</a></div>
-            <div id="countDownTimer"> 5:00 Minutes</div>
-        </nav>
-    </div>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="btn btn-primary btn-lg high_score"><a href="#" class="navbar-link hs_btn">View HighScores</a></div>
+        <div id="countDownTimer">
+            
+            <div id="minutes">2</div>
+            <div id="seconds">:00</div>
+          
+        </div>
+    </nav>
+    
    <!---The Quiz Start box--->
     <div class= "container">
         <div class="row">
@@ -34,7 +39,12 @@
             </div>
         </div>
     </div>
-    <!--The Quiz-->
+    <!-- HighScore initials form -->
+    <!-- <form class="form-inline">
+        <label class="sr-only" for="inlineFormInputName2">Name</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Initials">
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form> -->
 
 
 
@@ -42,6 +52,5 @@
     <!--JavaScript Page Link-->
     <script src="./script.js"></script>
 
-    <script src="questions.js"></script>
 </body>
 </html>
