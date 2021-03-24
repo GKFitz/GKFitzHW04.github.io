@@ -1,7 +1,10 @@
+var initialsInput = document.querySelector(".enterInitials-text");
 var timerEl = document.querySelector(".countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
-
+var userInitialList = document.querySelector("#userInitialsHS-list")
+var playerScoreSpan = document.querySelector("#userScore-count")
+var HighScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
 
@@ -9,6 +12,8 @@ var totalSeconds = 0;
 var secondsElapsed = 0;
 var interval;
 var index = 0;
+
+var scores = [];
 var questions = [{
     title: "Commonly used data types DO NOT include...",
     choices: ["String", "Boolean", "Alerts","Numbers"],
@@ -59,7 +64,9 @@ var questions = [{
 function startQuiz() {
     jumbotron.innerHTML = "";
     displayQ();
+    startTimer();
 }
+
 
 function displayQ() {
     jumbotron.innerHTML = "";
@@ -74,12 +81,12 @@ function displayQ() {
         options.setAttribute("value", currentQ.choices[i]);
         options.onclick = answerQ;
         jumbotron.appendChild(options);
-
-
     }
-
+    
 }
 
+
+//this function tracks the correct and th eincorrect answers
 function answerQ(){
     if(this.value !== questions[index].answer) {
         alert("Wrong!");
@@ -91,6 +98,61 @@ function answerQ(){
     displayQ();
     
 }
+ 
+//creates the list that gets stored for the player's initals and scores
+function renderTodos() {
+    userInitialsHSList.innerHTML = "";
+    playerScoreSpan.textContent = scores.length;
+  
+    // Render a new li for each 
+    for (var i = 0; i < scores.length; i++) {
+      var score = scores[i];
+  
+      var li = document.createElement("li");
+      li.textContent = score;
+      li.setAttribute("data-index", i);
+  
+      var initialsSubmitButton = document.createElement("button");
+      button.textContent = "submit";
+  
+      li.appendChild(initialsSubmitButton);
+      userInitialList.appendChild(li);
+    }
+  }
+
+function storeUserInitialsHS() {
+    // Stringify and set "scores" key in localStorage to todos array
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+enterInitialsForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    var todoText = todoInput.value.trim();
+  
+    // Return from function early if submitted todoText is blank
+    if (todoText === "") {
+      return;
+    }
+  
+    // Add new todoText to todos array, clear the input
+    scores.push(initialsInput);
+    initialsInput.value = "";
+  
+    // Store updated scores in localStorage, re-render the list
+    storeUserInitialsHS();
+    renderTodos();
+});
+
+function enterInitials() {
+    jumbotron.innerHTML = "";
+
+    if("time is up") {
+    
+    }
+    displayQ();
+}
+
+
 
 // function timer() {
 //     var timeLeft = 60;
@@ -117,7 +179,7 @@ var interval;
 
 // These two functions are just for making sure the numbers look nice for the html elements
 function getFormattedMinutes() {
-  //
+  
   var secondsLeft = totalSeconds - secondsElapsed;
 
   var minutesLeft = Math.floor(secondsLeft / 60);
@@ -125,7 +187,7 @@ function getFormattedMinutes() {
   var formattedMinutes;
 
   if (minutesLeft < 10) {
-    formattedMinutes = "0" + minutesLeft;
+    formattedMinutes = "0" +  + minutesLeft;
   } else {
     formattedMinutes = minutesLeft;
   }
@@ -191,7 +253,7 @@ function startTimer() {
         // So renderTime() is called here once every second.
         renderTime();
       }, 1000);
-  } else {
+  } 
     
 }
 
@@ -203,6 +265,8 @@ function startTimer() {
 
 
 startQuizBtn.onclick = startQuiz;
+
+
 
 
 
