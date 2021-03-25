@@ -107,8 +107,10 @@ function stopTimer() {
     console.log("stop the timer!")
 }
 
+//this should print out the users high score and ask them to input their initials
 function highScoreForm() {
-    
+    document.getElementById("userScore").innerHTML= "Your Score is" + " " + timeScore + "!";
+
     console.log(highScoreFormEl);
     highScoreFormEl.classList.remove("hidden");
     console.log(highScoreFormEl);
@@ -120,7 +122,7 @@ function highScoreForm() {
 function answerQ(){
     if(this.value !== questions[index].answer) {
         alert("Wrong!");
-        timeScore -= 10;
+        timeScore -= 20;
 
     }else {
         alert("correct!");
@@ -167,7 +169,7 @@ function renderUserInitialsHS() {
 
 function storeUserInitialsHS() {
     // Stringify and set "scores" key in localStorage to todos array
-    localStorage.setItem("scores", JSON.stringify(scores));
+    localStorage.setItem("highScoreForm", JSON.stringify(scores));
 }
 enterInitialsForm.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -175,7 +177,7 @@ enterInitialsForm.addEventListener("submit", function(event) {
     var todoText = todoInput.value.trim();
   
     // Return from function early if submitted todoText is blank
-    if (todoText === "") {
+    if (Text === "") {
       return;
     }
   
@@ -261,7 +263,7 @@ function setTime() {
   var minutes = 5;
 
   if (minutes === 0) {
-    alert("Time is up! See score!")
+    alert("Time is up! refresh to try again!")
   }
     clearInterval(interval);
     totalSeconds = minutes * 60;
@@ -275,7 +277,7 @@ function renderTime() {
 
  // ..and then checks to see if the time has run out
   if (secondsElapsed >= totalSeconds) {
-        alert("Time is up!");
+        alert("Time is up!Try Again?");
     } 
 
     

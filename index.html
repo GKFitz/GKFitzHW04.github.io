@@ -35,19 +35,20 @@
                 <div class="jumbotron">
                     <div id="intro">
                     <h1>Coding Quiz Challenge!!!</h1>
-                    <p>Try to answer the following coding related questions within the time given. Keep in mind that with every wrong answer ten seconds will be subtracted from your time. Good Luck! </p>
+                    <p>Try to answer the following coding related questions within the time given. Keep in mind that you will also be scored by how fast you answer, and with every wrong answer twenty seconds will be subtracted from your time. Good Luck! </p>
                     <p><a class="btn btn-primary btn-lg start_quizbtn" href="#" role="button">Start Quiz!</a></p>
                     
                     </div>
                     <div id="questionsContainer"></div>
                     <div class="viewHighScore hidden" id="highScoreForm">
-                        <
+                        <h2>All Done!</h2>
+                        <div id="userScore">Your Score is:</div>
                         <form id="enterInitialsForm">
-                          <label for="enterInitial-text">Enter Initials:</label>
-                          <input type="text" placeholder="initials" name="enterInitials-text" id="enterInitials-text" />
+                            <label id="enterInitialLabel-text">Enter Your Initials to Save Your Score:</label>
+                            <input type="text" placeholder="initials" name="enterInitials-text" id="enterInitials-text" />
                             <button type="submit">Submit</button>
                         </form>
-                        <p>Score: <span id="userScore-count">0</span></p>
+                        <!-- <p>Score: <span id="userScore-count">0</span></p> -->
                         <ul id="userInitialsHS_list"></ul>
                     </div>
                     

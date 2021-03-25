@@ -32,4 +32,11 @@
 .hidden {
     display: none;
 }
+#userScore {
+    padding: 20px;
+    font-weight: bold;
+}
+#enterInitialLabel-text {
+    font-weight: bold;
+}
   
