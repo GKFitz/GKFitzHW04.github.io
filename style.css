@@ -1,5 +1,6 @@
 #countDownTimer {
-    text-align: center;
+    text-align: left;
+    style: float;
     display:flex;
     color: white;
 }

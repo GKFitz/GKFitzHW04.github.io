@@ -2,12 +2,13 @@ var questionsContainer = document.querySelector("#questionsContainer");
 var intro = document.querySelector("#intro");
 var highScoreFormEl = document.querySelector("#highScoreForm");
 var initialsInput = document.querySelector("#enterInitials-text");
-var timerEl = document.querySelector(".countDownTimer");
+var timerEl = document.querySelector("#countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
-var userInitialList = document.querySelector("#userInitialsHS_list")
-var playerScoreSpan = document.querySelector("#userScore-count")
-var HighScoreBtn = document.querySelector(".high_score");
+var userInitialsHSList = document.querySelector("#userInitialsHSlist")
+
+//var playerScoreSpan = document.querySelector("#userScore-count")
+var viewScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
 
@@ -17,51 +18,55 @@ var interval;
 var index = 0;
 
 
-var timeScore = 100;
-var userinitialsHS = [];
+var timeScore = 120;
+var userInitialsHS = [];
 var questions = [{
     title: "Commonly used data types DO NOT include...",
-    choices: ["String", "Boolean", "Alerts","Numbers"],
-    answer: "Alerts",
+    choices: [
+        "1.String", 
+        "2.Boolean", 
+        "3.Alerts",
+        "4.Numbers"],
+    answer: "3.Alerts",
 },
 {
     title: "The condition in an if/else statement is enclosed within _______?",
     choices: [
-        "Quotes",
-        "Curly Braces",
-        "Parenthesis",
-        "Square Brackets]"],
-    answer: "Curly Braces",
+        "1.Quotes",
+        "2.Curly Braces",
+        "3.Parenthesis",
+        "4.Square Brackets"],
+    answer: "2.Curly Braces",
 },
 {   
     title: "Arrays in Javascript can be used to store _________",
     choices: [
-        "Numbers and Strings",
-        "Other Arrays",
-        "Booleans",
-        "All of the Above"],
-    answer: "All of the Above",
+        "1.Numbers and Strings",
+        "2.Other Arrays",
+        "3.Booleans",
+        "4.All of the Above"],
+    answer: "4.All of the Above",
 },
 {
     title: "String values must be enclose within _________ when being assigned to a variables.",
     choices: [
-        "Commas",
-        "Curly Brackets",
-        "Quotes",
-        "Parenthesis"],
+        "1.Commas",
+        "2.Curly Brackets",
+        "3.Quotes",
+        "4.Parenthesis"],
         
-    answer: "Quotes",
+    answer: "3.Quotes",
 
 },
 {
     title: "A very useful tool during development and debugging for printing content to the debugger is:",
     choices: [
-        "Javascript",
-        "Terminal/bash",
-        "For loops",
-        "Console Log"],
+        "1.Javascript",
+        "2.Terminal/bash",
+        "3.For loops",
+        "4.Console Log"],
         
-    answer: "Console Log",
+    answer: "4.Console Log",
 },
 ];
 
@@ -101,23 +106,6 @@ function displayQ() {
     
 }
 
-
-function stopTimer() {
-    clearInterval(interval);
-    console.log("stop the timer!")
-}
-
-//this should print out the users high score and ask them to input their initials
-function highScoreForm() {
-    document.getElementById("userScore").innerHTML= "Your Score is" + " " + timeScore + "!";
-
-    console.log(highScoreFormEl);
-    highScoreFormEl.classList.remove("hidden");
-    console.log(highScoreFormEl);
-    
-
-}
-
 //this function tracks the correct and the incorrect answers
 function answerQ(){
     if(this.value !== questions[index].answer) {
@@ -135,91 +123,65 @@ function answerQ(){
     
 }
 
-//want to start with a score of 5 and sub
-// function quizScore() {
-//     var score = currentQ * 5;
-//     if(currentQ !== "correct!") {
-//         score--
+function stopTimer() {
+    clearInterval(interval);
+    console.log("stop the timer!")
+}
 
-//     }
-//     answerQ();
-// }
- 
+//this should print out the users high score and ask them to input their initials
+function highScoreForm() {
+    document.getElementById("userScore").innerHTML= "Your Score is" + " " + timeScore + "!";
 
-//creates the list that gets stored for the player's initals and scores
+    console.log(highScoreFormEl);
+    highScoreFormEl.classList.remove("hidden");
+    console.log(highScoreFormEl);
+    var submitInitialsHS = document.querySelector("#submitInitialsHS");
+    //submitInitialsHS.onclick
+}
+
 function renderUserInitialsHS() {
     userInitialsHSList.innerHTML = "";
-    userScoreSpan.textContent = userInitalsHS.length;
+    //need to put the timeScore with the initials
+    //userScoreSpan.textContent = userInitalsHS.length;
   
-    // Render a new li for each 
+    // Render a new li for each new initial
     for (var i = 0; i < userInitalsHS.length; i++) {
-      var score = userInitialsHS[i];
+      var printUserInitialsHS = userInitialsHS[i];
   
       var li = document.createElement("li");
-      li.textContent = score;
+      li.textContent = printUserInitialsHS;
       li.setAttribute("data-index", i);
   
-      var initialsHSSubmitButton = document.createElement("button");
-      button.textContent = "submit";
-  
-      li.appendChild(initialsHSSubmitButton);
-      userInitialList.appendChild(li);
+    //   var initialsHSSubmitButton = document.createElement("button");
+    //   button.textContent = "submit";
+
+      userInitialHSList.appendChild(li);
     }
-  }
+}
 
 function storeUserInitialsHS() {
     // Stringify and set "scores" key in localStorage to todos array
-    localStorage.setItem("highScoreForm", JSON.stringify(scores));
+    localStorage.setItem("userInitialsHS", JSON.stringify(userInitialsHS));
 }
-enterInitialsForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-  
-    var todoText = todoInput.value.trim();
-  
-    // Return from function early if submitted todoText is blank
-    if (Text === "") {
-      return;
-    }
-  
-    // Add new  user inital to the userInitialsHSList array, clear the input
-    scores.push(initialsInput);
-    initialsInput.value = "";
-  
-    // Store updated scores in localStorage, re-render the list
-    storeUserInitialsHS();
-    renderUserInitalsHS();
-});
 
-// function enterInitials() {
-//     jumbotron.innerHTML = "";
+// When form is submitted...
+// highScoreForm.addEventListener("submit", function(event){
+//     event.preventDefault();
 
-//     if("time is up") {
-    
-//     }
-//     displayQ();
-// }
+//     var initialsAndHSText=
+
+//     userInitialsHS.push(initialsAndHSText)
+
+
+// })
 
 
 
-// function timer() {
-//     var timeLeft = 60;
-  
-//     var timeInterval = setInterval(function() {
-//       timerEl.textContent = timeLeft + "remaining";
-//       timeLeft--;
-  
-//       if (timeLeft === 0) {
-//         timerEl.textContent = "";
-//         clearInterval(timeInterval);
-//       }
-  
-//     }, 1000);
-// }
 
 
 
-// This launches the app by calling setTime() and renderTime()
-//getTimePreferences();
+
+
 
 // These two functions are just for making sure the numbers look nice for the html elements
 function getFormattedMinutes() {
@@ -312,6 +274,7 @@ function startTimer() {
 
 
 startQuizBtn.onclick = startQuiz;
+submitInitialsHS.onclick = submitInitialsHS;
 
 
 
