@@ -1,8 +1,11 @@
-var initialsInput = document.querySelector(".enterInitials-text");
+var questionsContainer = document.querySelector("#questionsContainer");
+var intro = document.querySelector("#intro");
+var highScoreFormEl = document.querySelector("#highScoreForm");
+var initialsInput = document.querySelector("#enterInitials-text");
 var timerEl = document.querySelector(".countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
-var userInitialList = document.querySelector("#userInitialsHS-list")
+var userInitialList = document.querySelector("#userInitialsHS_list")
 var playerScoreSpan = document.querySelector("#userScore-count")
 var HighScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
@@ -13,7 +16,9 @@ var secondsElapsed = 0;
 var interval;
 var index = 0;
 
-var scores = [];
+
+var timeScore = 100;
+var userinitialsHS = [];
 var questions = [{
     title: "Commonly used data types DO NOT include...",
     choices: ["String", "Boolean", "Alerts","Numbers"],
@@ -62,60 +67,100 @@ var questions = [{
 
 
 function startQuiz() {
-    jumbotron.innerHTML = "";
+    questionsContainer.innerHTML = "";
+    intro.classList.add("hidden");
     displayQ();
     startTimer();
 }
 
 
 function displayQ() {
-    jumbotron.innerHTML = "";
+    questionsContainer.innerHTML = "";
     var currentQ = questions[index];
-    var titleQ = document.createElement("h2");
-    titleQ.textContent = currentQ.title;
-    jumbotron.appendChild(titleQ);
-    for(var i = 0; i < currentQ.choices.length; i++) {
-        var options = document.createElement("button");
-        options.textContent = currentQ.choices[i];
-        options.setAttribute("class", "option");
-        options.setAttribute("value", currentQ.choices[i]);
-        options.onclick = answerQ;
-        jumbotron.appendChild(options);
+
+
+    if(currentQ) {
+        var titleQ = document.createElement("h2");
+        titleQ.textContent = currentQ.title;
+        questionsContainer.appendChild(titleQ);
+        for(var i = 0; i < currentQ.choices.length; i++) {
+            var options = document.createElement("button");
+            options.textContent = currentQ.choices[i];
+            options.setAttribute("class", "option");
+            options.setAttribute("value", currentQ.choices[i]);
+            options.onclick = answerQ;
+            questionsContainer.appendChild(options);
+        }
+    }else{
+    //stop the timer once all questions are answered
+    stopTimer()
+    highScoreForm()
     }
+
+    //call the userhighscore initals form here 
     
 }
 
 
-//this function tracks the correct and th eincorrect answers
+function stopTimer() {
+    clearInterval(interval);
+    console.log("stop the timer!")
+}
+
+function highScoreForm() {
+    
+    console.log(highScoreFormEl);
+    highScoreFormEl.classList.remove("hidden");
+    console.log(highScoreFormEl);
+    
+
+}
+
+//this function tracks the correct and the incorrect answers
 function answerQ(){
     if(this.value !== questions[index].answer) {
         alert("Wrong!");
+        timeScore -= 10;
 
     }else {
         alert("correct!");
     }
-    index++
-    displayQ();
+
+    // if(index < questions.length -1) {
+        index++
+        displayQ();
+    // }
     
 }
+
+//want to start with a score of 5 and sub
+// function quizScore() {
+//     var score = currentQ * 5;
+//     if(currentQ !== "correct!") {
+//         score--
+
+//     }
+//     answerQ();
+// }
  
+
 //creates the list that gets stored for the player's initals and scores
-function renderTodos() {
+function renderUserInitialsHS() {
     userInitialsHSList.innerHTML = "";
-    playerScoreSpan.textContent = scores.length;
+    userScoreSpan.textContent = userInitalsHS.length;
   
     // Render a new li for each 
-    for (var i = 0; i < scores.length; i++) {
-      var score = scores[i];
+    for (var i = 0; i < userInitalsHS.length; i++) {
+      var score = userInitialsHS[i];
   
       var li = document.createElement("li");
       li.textContent = score;
       li.setAttribute("data-index", i);
   
-      var initialsSubmitButton = document.createElement("button");
+      var initialsHSSubmitButton = document.createElement("button");
       button.textContent = "submit";
   
-      li.appendChild(initialsSubmitButton);
+      li.appendChild(initialsHSSubmitButton);
       userInitialList.appendChild(li);
     }
   }
@@ -134,23 +179,23 @@ enterInitialsForm.addEventListener("submit", function(event) {
       return;
     }
   
-    // Add new todoText to todos array, clear the input
+    // Add new  user inital to the userInitialsHSList array, clear the input
     scores.push(initialsInput);
     initialsInput.value = "";
   
     // Store updated scores in localStorage, re-render the list
     storeUserInitialsHS();
-    renderTodos();
+    renderUserInitalsHS();
 });
 
-function enterInitials() {
-    jumbotron.innerHTML = "";
+// function enterInitials() {
+//     jumbotron.innerHTML = "";
 
-    if("time is up") {
+//     if("time is up") {
     
-    }
-    displayQ();
-}
+//     }
+//     displayQ();
+// }
 
 
 
@@ -169,9 +214,6 @@ function enterInitials() {
 //     }, 1000);
 // }
 
-var totalSeconds = 0;
-var secondsElapsed = 0;
-var interval;
 
 
 // This launches the app by calling setTime() and renderTime()
@@ -180,9 +222,9 @@ var interval;
 // These two functions are just for making sure the numbers look nice for the html elements
 function getFormattedMinutes() {
   
-  var secondsLeft = totalSeconds - secondsElapsed;
+  //var secondsLeft = totalSeconds - secondsElapsed;
 
-  var minutesLeft = Math.floor(secondsLeft / 60);
+  var minutesLeft = Math.floor(timeScore / 60);
 
   var formattedMinutes;
 
@@ -196,7 +238,9 @@ function getFormattedMinutes() {
 }
 
 function getFormattedSeconds() {
-  var secondsLeft = (totalSeconds - secondsElapsed) % 60;
+
+    //the mod operator returns the remainder
+  var secondsLeft = (timeScore) % 60;
 
   var formattedSeconds;
 
@@ -217,7 +261,7 @@ function setTime() {
   var minutes = 5;
 
   if (minutes === 0) {
-    alert("Time is up! See score your!")
+    alert("Time is up! See score!")
   }
     clearInterval(interval);
     totalSeconds = minutes * 60;
@@ -248,7 +292,8 @@ function startTimer() {
     /* The "interval" variable here using "setInterval()" begins the recurring increment of the
        secondsElapsed variable which is used to check if the time is up */
       interval = setInterval(function() {
-        secondsElapsed++;
+        //secondsElapsed++;
+        timeScore--;
 
         // So renderTime() is called here once every second.
         renderTime();
