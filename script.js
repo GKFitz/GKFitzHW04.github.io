@@ -1,11 +1,13 @@
 var questionsContainer = document.querySelector("#questionsContainer");
 var intro = document.querySelector("#intro");
 var highScoreFormEl = document.querySelector("#highScoreForm");
+var enterInitialsForm = document.querySelector("#enterInitialsForm ");
 var initialsInput = document.querySelector("#enterInitials-text");
 var timerEl = document.querySelector("#countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
-var userInitialsHSList = document.querySelector("#userInitialsHSlist")
+var viewScoresBtn = document.querySelector(".hs_btn");
+var userInitialsHSList = document.querySelector("#userInitialsHSList")
 
 //var playerScoreSpan = document.querySelector("#userScore-count")
 var viewScoreBtn = document.querySelector(".high_score");
@@ -20,6 +22,11 @@ var index = 0;
 
 var timeScore = 120;
 var userInitialsHS = [];
+
+
+getData();
+
+
 var questions = [{
     title: "Commonly used data types DO NOT include...",
     choices: [
@@ -135,34 +142,61 @@ function highScoreForm() {
     console.log(highScoreFormEl);
     highScoreFormEl.classList.remove("hidden");
     console.log(highScoreFormEl);
-    var submitInitialsHS = document.querySelector("#submitInitialsHS");
+    //var submitInitialsHS = document.querySelector("#submitInitialsHS");
     //submitInitialsHS.onclick
 }
 
+function submitInitialsHS(event) {
+    event.preventDefault();
+    var initials = document.querySelector("#enterInitials-text").value.trim();
+    if(initials) {
+        setData(initials,timeScore);
+    }
+
+
+}
+
+//Get initial and score and add it to the initialsHS Array
+function setData(initials, score) {
+    userInitialsHS.push({initials,score});
+    localStorage.setItem("userInitialsHS", JSON.stringify(userInitialsHS));
+
+}
+
+function getData(){
+    var data = localStorage.getItem("userInitialsHS");
+    if(data) {
+        userInitialsHS = JSON.parse(data);
+
+    }else{
+        userInitialsHS = [];
+    }
+    
+}
+
+
 function renderUserInitialsHS() {
     userInitialsHSList.innerHTML = "";
+    highScoreFormEl.classList.remove("hidden");
     //need to put the timeScore with the initials
     //userScoreSpan.textContent = userInitalsHS.length;
   
     // Render a new li for each new initial
-    for (var i = 0; i < userInitalsHS.length; i++) {
+    for (var i = 0; i < userInitialsHS.length; i++) {
       var printUserInitialsHS = userInitialsHS[i];
   
       var li = document.createElement("li");
-      li.textContent = printUserInitialsHS;
-      li.setAttribute("data-index", i);
+      li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
+      //li.setAttribute("data-index", i);
   
     //   var initialsHSSubmitButton = document.createElement("button");
     //   button.textContent = "submit";
 
-      userInitialHSList.appendChild(li);
+      userInitialsHSList.appendChild(li);
     }
 }
 
-function storeUserInitialsHS() {
-    // Stringify and set "scores" key in localStorage to todos array
-    localStorage.setItem("userInitialsHS", JSON.stringify(userInitialsHS));
-}
+
 
 // When form is submitted...
 // highScoreForm.addEventListener("submit", function(event){
@@ -193,7 +227,7 @@ function getFormattedMinutes() {
   var formattedMinutes;
 
   if (minutesLeft < 10) {
-    formattedMinutes = "0" +  + minutesLeft;
+    formattedMinutes = "0" + minutesLeft;
   } else {
     formattedMinutes = minutesLeft;
   }
@@ -241,9 +275,6 @@ function renderTime() {
   if (secondsElapsed >= totalSeconds) {
         alert("Time is up!Try Again?");
     } 
-
-    
-  
 }
 
 // This function is where the "time" aspect of the timer runs
@@ -274,7 +305,9 @@ function startTimer() {
 
 
 startQuizBtn.onclick = startQuiz;
-submitInitialsHS.onclick = submitInitialsHS;
+enterInitialsForm.addEventListener("submit", submitInitialsHS);
+viewScoresBtn.addEventListener("click", renderUserInitialsHS);
+//Need event listener for the view Scores button
 
 
 
