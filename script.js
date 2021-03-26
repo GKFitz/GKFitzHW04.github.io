@@ -10,7 +10,6 @@ var viewScoresBtn = document.querySelector(".hs_btn");
 var clearListBtn = document.querySelector("#clearListBtn");
 var userInitialsHSList = document.querySelector("#userInitialsHSList")
 var viewScoreContainer= document.querySelector("#viewScoreContainer")
-//var playerScoreSpan = document.querySelector("#userScore-count")
 var viewScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
@@ -89,6 +88,30 @@ function startQuiz() {
     displayQ();
     startTimer();
 }
+function startTimer() {
+    setTime();
+  
+    // We only want to start the timer if totalSeconds is > 0
+    if (totalSeconds > 0) {
+      /* The "interval" variable here using "setInterval()" begins the recurring increment of the
+         secondsElapsed variable which is used to check if the time is up */
+        interval = setInterval(function() {
+          //secondsElapsed++;
+          //timeScore--;
+          timeScore = Math.max(0, timeScore-1);
+          if(timeScore === 0) {
+              index = questions.length;
+              alert("time is up!")
+          }
+  
+  
+  
+          // So renderTime() is called here once every second.
+          renderTime();
+        }, 1000);
+      } 
+      
+  }
 
 
 function displayQ() {
@@ -109,7 +132,7 @@ function displayQ() {
             questionsContainer.appendChild(options);
         }
     }else{
-    //stop the timer once all questions are answered
+    //stop the timer once all questions are answered, call the initials form
     stopTimer();
     highScoreForm();
     intro.classList.remove("hidden");
@@ -207,9 +230,6 @@ function clearLocalStorage(event) {
 
 // These two functions are just for making sure the numbers look nice for the html elements
 function getFormattedMinutes() {
-  
-  //var secondsLeft = totalSeconds - secondsElapsed;
-
   var minutesLeft = Math.floor(timeScore / 60);
 
   var formattedMinutes;
@@ -260,35 +280,13 @@ function renderTime() {
   secondsDisplay.textContent = getFormattedSeconds();
 
  // ..and then checks to see if the time has run out
-  if (secondsElapsed >= totalSeconds) {
-        alert("Time is up!Try Again?");
-    } 
+//   if (secondsElapsed >= totalSeconds) {
+//         alert("Time is up!Try Again?");
+//         startQuiz();
+//     } 
+
 }
 
-// This function is where the "time" aspect of the timer runs
-// Notice no settings are changed other than to increment the secondsElapsed var
-function startTimer() {
-  setTime();
-
-  // We only want to start the timer if totalSeconds is > 0
-  if (totalSeconds > 0) {
-    /* The "interval" variable here using "setInterval()" begins the recurring increment of the
-       secondsElapsed variable which is used to check if the time is up */
-      interval = setInterval(function() {
-        //secondsElapsed++;
-        //timeScore--;
-        timeScore = Math.max(0, timeScore-1);
-        if(timeScore === 0) {
-            index = questions.length;
-        }
-
-
-        // So renderTime() is called here once every second.
-        renderTime();
-      }, 1000);
-  } 
-    
-}
 
 
 startQuizBtn.onclick = startQuiz;
