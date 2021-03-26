@@ -7,6 +7,7 @@ var timerEl = document.querySelector("#countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
 var viewScoresBtn = document.querySelector(".hs_btn");
+var clearListBtn = document.querySelector(".clearListBtn");
 var userInitialsHSList = document.querySelector("#userInitialsHSList")
 
 //var playerScoreSpan = document.querySelector("#userScore-count")
@@ -101,15 +102,16 @@ function displayQ() {
             options.setAttribute("class", "option");
             options.setAttribute("value", currentQ.choices[i]);
             options.onclick = answerQ;
+            //document.getElementById("").style.display = "block";
             questionsContainer.appendChild(options);
         }
     }else{
     //stop the timer once all questions are answered
-    stopTimer()
-    highScoreForm()
+    stopTimer();
+    highScoreForm();
     }
 
-    //call the userhighscore initals form here 
+    
     
 }
 
@@ -132,18 +134,13 @@ function answerQ(){
 
 function stopTimer() {
     clearInterval(interval);
-    console.log("stop the timer!")
 }
 
 //this should print out the users high score and ask them to input their initials
 function highScoreForm() {
     document.getElementById("userScore").innerHTML= "Your Score is" + " " + timeScore + "!";
-
-    console.log(highScoreFormEl);
     highScoreFormEl.classList.remove("hidden");
-    console.log(highScoreFormEl);
-    //var submitInitialsHS = document.querySelector("#submitInitialsHS");
-    //submitInitialsHS.onclick
+    clearInterval(interval);
 }
 
 function submitInitialsHS(event) {
@@ -175,8 +172,9 @@ function getData(){
 }
 
 
-function renderUserInitialsHS() {
-    userInitialsHSList.innerHTML = "";
+function renderUserInitialsHS(event) {
+    event.preventDefault();
+    viewList.innerHTML = "";
     highScoreFormEl.classList.remove("hidden");
     //need to put the timeScore with the initials
     //userScoreSpan.textContent = userInitalsHS.length;
@@ -195,26 +193,9 @@ function renderUserInitialsHS() {
       userInitialsHSList.appendChild(li);
     }
 }
-
-
-
-// When form is submitted...
-// highScoreForm.addEventListener("submit", function(event){
-//     event.preventDefault();
-
-//     var initialsAndHSText=
-
-//     userInitialsHS.push(initialsAndHSText)
-
-
-// })
-
-
-
-
-
-
-
+function List(){
+    localStorage.clear();
+}
 
 
 // These two functions are just for making sure the numbers look nice for the html elements
@@ -307,7 +288,8 @@ function startTimer() {
 startQuizBtn.onclick = startQuiz;
 enterInitialsForm.addEventListener("submit", submitInitialsHS);
 viewScoresBtn.addEventListener("click", renderUserInitialsHS);
-//Need event listener for the view Scores button
+
+
 
 
 
