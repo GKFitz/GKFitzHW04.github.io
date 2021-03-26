@@ -88,21 +88,19 @@ function startQuiz() {
     displayQ();
     startTimer();
 }
+
 function startTimer() {
     setTime();
   
     // We only want to start the timer if totalSeconds is > 0
     if (totalSeconds > 0) {
-      /* The "interval" variable here using "setInterval()" begins the recurring increment of the
-         secondsElapsed variable which is used to check if the time is up */
         interval = setInterval(function() {
-          //secondsElapsed++;
-          //timeScore--;
           timeScore = Math.max(0, timeScore-1);
-          if(timeScore === 0) {
+            if(timeScore === 0) {
               index = questions.length;
-              alert("time is up!")
-          }
+              alert("Uh OH! Time is up! Try Again!")
+              startQuiz();
+            }
   
   
   
@@ -111,7 +109,7 @@ function startTimer() {
         }, 1000);
       } 
       
-  }
+}
 
 
 function displayQ() {
@@ -227,8 +225,6 @@ function clearLocalStorage(event) {
     
 }
 
-
-// These two functions are just for making sure the numbers look nice for the html elements
 function getFormattedMinutes() {
   var minutesLeft = Math.floor(timeScore / 60);
 
@@ -245,7 +241,7 @@ function getFormattedMinutes() {
 
 function getFormattedSeconds() {
 
-    //the mod operator returns the remainder
+    
   var secondsLeft = (timeScore) % 60;
 
   var formattedSeconds;
@@ -259,10 +255,7 @@ function getFormattedSeconds() {
   return formattedSeconds;
 }
 
-/* This function retrieves the values from the html input elements; Sort of
-   getting run in the background, it sets the totalSeconds variable which
-   is used in getFormattedMinutes/Seconds() and the renderTime() function.
-   It essentially resets our timer */
+
 function setTime() {
   var minutes = 5;
 
