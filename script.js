@@ -7,9 +7,9 @@ var timerEl = document.querySelector("#countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
 var viewScoresBtn = document.querySelector(".hs_btn");
-var clearListBtn = document.querySelector(".clearListBtn");
+var clearListBtn = document.querySelector("#clearListBtn");
 var userInitialsHSList = document.querySelector("#userInitialsHSList")
-
+var viewScoreContainer= document.querySelector("#viewScoreContainer")
 //var playerScoreSpan = document.querySelector("#userScore-count")
 var viewScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
@@ -82,6 +82,10 @@ var questions = [{
 function startQuiz() {
     questionsContainer.innerHTML = "";
     intro.classList.add("hidden");
+    viewScoreContainer.classList.add("hidden");
+    highScoreFormEl.classList.add("hidden");
+    index = 0;
+    timeScore = 120;
     displayQ();
     startTimer();
 }
@@ -102,13 +106,13 @@ function displayQ() {
             options.setAttribute("class", "option");
             options.setAttribute("value", currentQ.choices[i]);
             options.onclick = answerQ;
-            //document.getElementById("").style.display = "block";
             questionsContainer.appendChild(options);
         }
     }else{
     //stop the timer once all questions are answered
     stopTimer();
     highScoreForm();
+    intro.classList.remove("hidden");
     }
 
     
@@ -119,16 +123,15 @@ function displayQ() {
 function answerQ(){
     if(this.value !== questions[index].answer) {
         alert("Wrong!");
-        timeScore -= 20;
+        timeScore = Math.max(0, timeScore-20);
 
     }else {
         alert("correct!");
+        
     }
-
-    // if(index < questions.length -1) {
-        index++
-        displayQ();
-    // }
+    index++
+    displayQ();
+    
     
 }
 
@@ -148,6 +151,7 @@ function submitInitialsHS(event) {
     var initials = document.querySelector("#enterInitials-text").value.trim();
     if(initials) {
         setData(initials,timeScore);
+        renderUserInitialsHS(event);
     }
 
 
@@ -171,13 +175,12 @@ function getData(){
     
 }
 
-
 function renderUserInitialsHS(event) {
     event.preventDefault();
-    viewList.innerHTML = "";
-    highScoreFormEl.classList.remove("hidden");
-    //need to put the timeScore with the initials
-    //userScoreSpan.textContent = userInitalsHS.length;
+    userInitialsHSList.innerHTML = "";
+    highScoreFormEl.classList.add("hidden");
+    viewScoreContainer.classList.remove("hidden");
+    
   
     // Render a new li for each new initial
     for (var i = 0; i < userInitialsHS.length; i++) {
@@ -185,16 +188,20 @@ function renderUserInitialsHS(event) {
   
       var li = document.createElement("li");
       li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
-      //li.setAttribute("data-index", i);
-  
-    //   var initialsHSSubmitButton = document.createElement("button");
-    //   button.textContent = "submit";
+      
 
       userInitialsHSList.appendChild(li);
     }
+    //viewList.appendChild(userInitialsHSList);
 }
-function List(){
+
+function clearLocalStorage(event) {
+    event.preventDefault();
     localStorage.clear();
+    viewScoreContainer.classList.add("hidden")
+
+    intro.classList.remove("hidden");
+    
 }
 
 
@@ -269,7 +276,12 @@ function startTimer() {
        secondsElapsed variable which is used to check if the time is up */
       interval = setInterval(function() {
         //secondsElapsed++;
-        timeScore--;
+        //timeScore--;
+        timeScore = Math.max(0, timeScore-1);
+        if(timeScore === 0) {
+            index = questions.length;
+        }
+
 
         // So renderTime() is called here once every second.
         renderTime();
@@ -279,15 +291,10 @@ function startTimer() {
 }
 
 
-
-
-// Output the clock data as a reusable object.
-// Display the clock on the page, and stop the clock when it reaches zero.
-
-
 startQuizBtn.onclick = startQuiz;
 enterInitialsForm.addEventListener("submit", submitInitialsHS);
 viewScoresBtn.addEventListener("click", renderUserInitialsHS);
+clearListBtn.addEventListener("click", clearLocalStorage);
 
 
 

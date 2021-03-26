@@ -1,6 +1,6 @@
 #countDownTimer {
     text-align: left;
-    style: float;
+    /* style: float; */
     display:flex;
     color: white;
 }
@@ -39,5 +39,11 @@
 }
 #enterInitialLabel-text {
     font-weight: bold;
+}
+
+.option {
+    display: block;
+    margin: 0 auto;
+
 }
   
