@@ -8,7 +8,7 @@ var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
 var userInitialsHSList = document.querySelector("#userInitialsHSList")
 var viewScoresBtn = document.querySelector(".hs_btn");
-var clearListBtn = document.querySelector(".clearListBtn");
+//var clearListBtn = document.querySelector(".clearListBtn");
 var viewScoreContainer= document.querySelector("#viewScoreContainer")
 var viewScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
@@ -81,7 +81,7 @@ var questions = [{
 function startQuiz() {
     questionsContainer.innerHTML = "";
     intro.classList.add("hidden");
-    viewScoreContainer.classList.add("hidden");
+    // viewScoreContainer.classList.add("hidden");
     highScoreFormEl.classList.add("hidden");
     index = 0;
     timeScore = 120;
@@ -97,9 +97,12 @@ function startTimer() {
         interval = setInterval(function() {
           timeScore = Math.max(0, timeScore-1);
             if(timeScore === 0) {
-              index = questions.length;
-              alert("Uh OH! Time is up! Try Again!")
-              startQuiz();
+                intro.classList.remove("hidden");
+                alert("Uh OH! Time is up! Try Again!")
+                // index = questions.length;
+                startQuiz();
+
+                
             }
   
   
@@ -172,7 +175,8 @@ function submitInitialsHS(event) {
     var initials = document.querySelector("#enterInitials-text").value.trim();
     if(initials) {
         setData(initials,timeScore);
-        renderUserInitialsHS(event);
+        window.location.href = "./viewScore.html";
+        // renderUserInitialsHS(event);
     }
 
 
@@ -196,34 +200,34 @@ function getData(){
     
 }
 
-function renderUserInitialsHS(event) {
-    event.preventDefault();
-    userInitialsHSList.innerHTML = "";
-    highScoreFormEl.classList.add("hidden");
-    viewScoreContainer.classList.remove("hidden");
+// function renderUserInitialsHS(event) {
+//     event.preventDefault();
+//     userInitialsHSList.innerHTML = "";
+//     highScoreFormEl.classList.add("hidden");
+//     viewScoreContainer.classList.remove("hidden");
     
   
-    // Render a new li for each new initial
-    for (var i = 0; i < userInitialsHS.length; i++) {
-      var printUserInitialsHS = userInitialsHS[i];
+//     // Render a new li for each new initial
+//     for (var i = 0; i < userInitialsHS.length; i++) {
+//       var printUserInitialsHS = userInitialsHS[i];
   
-      var li = document.createElement("li");
-      li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
+//       var li = document.createElement("li");
+//       li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
       
 
-      userInitialsHSList.appendChild(li);
-    }
-    //viewList.appendChild(userInitialsHSList);
-}
-
-function clearLocalStorage(event) {
-    event.preventDefault();
-    localStorage.clear();
-    viewScoreContainer.classList.add("hidden")
-
-    intro.classList.remove("hidden");
+//       userInitialsHSList.appendChild(li);
+//     }
     
-}
+// }
+
+// function clearLocalStorage(event) {
+//     event.preventDefault();
+//     localStorage.clear();
+//     viewScoreContainer.classList.add("hidden")
+
+//     intro.classList.remove("hidden");
+    
+// }
 
 function getFormattedMinutes() {
   var minutesLeft = Math.floor(timeScore / 60);
@@ -257,7 +261,7 @@ function getFormattedSeconds() {
 
 
 function setTime() {
-  var minutes = 5;
+  var minutes = 2;
 
   if (minutes === 0) {
     alert("Time is up! refresh to try again!")
@@ -284,8 +288,8 @@ function renderTime() {
 
 startQuizBtn.onclick = startQuiz;
 enterInitialsForm.addEventListener("submit", submitInitialsHS);
-viewScoresBtn.addEventListener("click", renderUserInitialsHS);
-clearListBtn.addEventListener("click", clearLocalStorage);
+// viewScoresBtn.addEventListener("click", renderUserInitialsHS);
+// clearListBtn.addEventListener("click", clearLocalStorage);
 
 
 
