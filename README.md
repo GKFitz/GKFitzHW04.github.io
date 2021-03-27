@@ -9,4 +9,4 @@ It features a dynamically updating HTML and CSS powered by JavaScript. I have tr
 
 
 
-![image](https://user-images.githubusercontent.com/73301331/112689430-aadbee00-8e50-11eb-93b1-fe746e9327c8.png)
+
