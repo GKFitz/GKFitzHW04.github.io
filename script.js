@@ -6,9 +6,9 @@ var initialsInput = document.querySelector("#enterInitials-text");
 var timerEl = document.querySelector("#countDownTimer");
 var startQuizBtn = document.querySelector(".start_quizbtn");
 var jumbotron = document.querySelector(".jumbotron");
-//var userInitialsHSList = document.querySelector("#userInitialsHSList")
+
 var viewScoresBtn = document.querySelector(".hs_btn");
-//var clearListBtn = document.querySelector(".clearListBtn");
+
 var viewScoreContainer= document.querySelector("#viewScoreContainer")
 var viewScoreBtn = document.querySelector(".high_score");
 var minutesDisplay = document.querySelector("#minutes");
@@ -19,8 +19,9 @@ var secondsElapsed = 0;
 var interval;
 var index = 0;
 
-
+//This accounts for the time on the clock AND the score count
 var timeScore = 120;
+//Array for the saved initials with score
 var userInitialsHS = [];
 
 
@@ -81,7 +82,6 @@ var questions = [{
 function startQuiz() {
     questionsContainer.innerHTML = "";
     intro.classList.add("hidden");
-    // viewScoreContainer.classList.add("hidden");
     highScoreFormEl.classList.add("hidden");
     index = 0;
     timeScore = 120;
@@ -159,6 +159,7 @@ function answerQ(){
     
 }
 
+// This stops and clears the timer once the quiz is done
 function stopTimer() {
     clearInterval(interval);
 }
@@ -170,24 +171,26 @@ function highScoreForm() {
     clearInterval(interval);
 }
 
+// this submits the user initials and score data, then redirects the user to the view score page
 function submitInitialsHS(event) {
     event.preventDefault();
     var initials = document.querySelector("#enterInitials-text").value.trim();
     if(initials) {
         setData(initials,timeScore);
         window.location.href = "./viewScore.html";
-        // renderUserInitialsHS(event);
+        
     }
 
 
 }
 
-//Get initial and score and add it to the initialsHS Array
+//Get initial and score and add it to the userinitialsHS Array and put it into local storage
 function setData(initials, score) {
     userInitialsHS.push({initials,score});
     localStorage.setItem("userInitialsHS", JSON.stringify(userInitialsHS));
 
 }
+
 
 function getData(){
     var data = localStorage.getItem("userInitialsHS");
@@ -200,35 +203,8 @@ function getData(){
     
 }
 
-// function renderUserInitialsHS(event) {
-//     event.preventDefault();
-//     userInitialsHSList.innerHTML = "";
-//     highScoreFormEl.classList.add("hidden");
-//     viewScoreContainer.classList.remove("hidden");
-    
-  
-//     // Render a new li for each new initial
-//     for (var i = 0; i < userInitialsHS.length; i++) {
-//       var printUserInitialsHS = userInitialsHS[i];
-  
-//       var li = document.createElement("li");
-//       li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
-      
 
-//       userInitialsHSList.appendChild(li);
-//     }
-    
-// }
-
-// function clearLocalStorage(event) {
-//     event.preventDefault();
-//     localStorage.clear();
-//     viewScoreContainer.classList.add("hidden")
-
-//     intro.classList.remove("hidden");
-    
-// }
-
+//Both of these functions modifies the clock so it can show minutes and seconds instead of milliseconds
 function getFormattedMinutes() {
   var minutesLeft = Math.floor(timeScore / 60);
 
@@ -259,37 +235,29 @@ function getFormattedSeconds() {
   return formattedSeconds;
 }
 
-
+//This sets thetime on the clock in minutes and seconds
 function setTime() {
   var minutes = 2;
 
-  if (minutes === 0) {
-    alert("Time is up! refresh to try again!")
-  }
+
     clearInterval(interval);
     totalSeconds = minutes * 60;
 }
 
-// This function does 2 things. displays the time and checks to see if time is up.
+// this renders the formatted minutes and seconds onto the page
 function renderTime() {
-  // When renderTime is called it sets the textContent for the timer html...
+
   minutesDisplay.textContent = getFormattedMinutes();
   secondsDisplay.textContent = getFormattedSeconds();
 
- // ..and then checks to see if the time has run out
-//   if (secondsElapsed >= totalSeconds) {
-//         alert("Time is up!Try Again?");
-//         startQuiz();
-//     } 
-
+ 
 }
 
 
 
 startQuizBtn.onclick = startQuiz;
 enterInitialsForm.addEventListener("submit", submitInitialsHS);
-// viewScoresBtn.addEventListener("click", renderUserInitialsHS);
-// clearListBtn.addEventListener("click", clearLocalStorage);
+
 
 
 

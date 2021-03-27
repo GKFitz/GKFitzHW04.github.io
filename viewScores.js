@@ -24,7 +24,7 @@ window.addEventListener('load', (event) => {
     }
     
     console.log("window loaded");
-    // log.textContent = log.textContent + 'load\n';
+    
 });
 
 function getData(){
@@ -50,27 +50,3 @@ function clearLocalStorage(event) {
 
 clearListBtn.addEventListener("click", clearLocalStorage);
 
-// function renderUserInitialsHS(event) {
-//     event.preventDefault();
-//     userInitialsHSList.innerHTML = "";
-//     highScoreFormEl.classList.add("hidden");
-//     viewScoreContainer.classList.remove("hidden");
-    
-  
-//     // Render a new li for each new initial
-//     for (var i = 0; i < userInitialsHS.length; i++) {
-//       var printUserInitialsHS = userInitialsHS[i];
-  
-//       var li = document.createElement("li");
-//       li.textContent = `${printUserInitialsHS.initials}: ${printUserInitialsHS.score}`;
-      
-
-//       userInitialsHSList.appendChild(li);
-//     }
-    
-// }
-
-// document.addEventListener('readystatechange', (event) => {
-//     console.log("document loaded");
-//     // log.textContent = log.textContent + `readystate: ${document.readyState}\n`;
-// });

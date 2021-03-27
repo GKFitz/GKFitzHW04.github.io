@@ -8,8 +8,6 @@
 }
 
 
-
-
 .jumbotron {
     text-align: center;
     margin: 10px auto;
@@ -50,6 +48,8 @@
     margin: 0 auto;
 
 }
+
+/* for the viewScores */
 ul {
     list-style-type: none; 
     margin: 0 auto;
@@ -58,13 +58,15 @@ ul {
 }
 
 li {
+    list-style-type: decimal;
     margin: 0 auto;
     font-size: large;
+    font-weight: 500;
 }
 .clearListBtn {
     color: black;
     width: 50%;
-    /* font-size: large; */
+    
     
 }
 
