@@ -1,5 +1,6 @@
 //as soon as the index.html loads this will printout the scores list in the view Scores html
 var clearListBtn = document.querySelector(".clearListBtn");
+var userInitialsHSList = document.querySelector("#userInitialsHSList")
 var userInitialsHS = [];
 
 
@@ -41,6 +42,7 @@ function clearLocalStorage(event) {
     event.preventDefault();
     localStorage.clear();
     viewScoreContainer.classList.add("hidden")
+    userInitialsHSList.innerHTML = "";
 
     
     
