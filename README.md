@@ -14,8 +14,9 @@ Screenshots
 ![image](https://user-images.githubusercontent.com/73301331/112708658-aa137e00-8e89-11eb-8285-9a99298e28b9.png)
 
 Questions:
-For any questions please contact me via email and/or gitHub;
-gkf2103@gmail.com
+For any questions please contact me via email and/or gitHub:
+gkf2103@gmail.com:
+
 https://github.com/GKFitz
 
 
