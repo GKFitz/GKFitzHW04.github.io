@@ -16,8 +16,7 @@ Screenshots
 Questions:
 For any questions please contact me via email and/or gitHub;
 gkf2103@gmail.com
-
-GKFitz
+https://github.com/GKFitz
 
 
 Link to Quiz:
